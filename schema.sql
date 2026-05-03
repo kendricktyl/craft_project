@@ -33,6 +33,7 @@ create table product_variants (
                    check (stock_status in ('in_stock', 'low_stock', 'out_of_stock')),
   stock_count    integer default 10,
   price_modifier numeric(10, 2) default 0,
+  image_url      text,
   created_at     timestamptz default now()
 );
 
@@ -199,6 +200,11 @@ begin
     (s2, 'Pattina Blue',  '#5B8FA8', 'in_stock',   7),
     (s2, 'Dusty Rose',    '#D4A5A5', 'in_stock',   6),
     (s2, 'Charcoal',      '#4B5563', 'out_of_stock',0);
+
+  -- Stable picsum URLs keyed off each variant id so every colour has its own photo.
+  update product_variants
+     set image_url = 'https://picsum.photos/seed/craft-' || id::text || '/900/900'
+   where image_url is null;
 
 end;
 $$;

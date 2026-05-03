@@ -6,6 +6,7 @@ export type ProductVariant = {
   stock_status: 'in_stock' | 'low_stock' | 'out_of_stock'
   stock_count: number
   price_modifier: number
+  image_url: string | null
   created_at: string
 }
 
